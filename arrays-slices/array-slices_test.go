@@ -1,6 +1,9 @@
 package arraysslices
 
-import "testing"
+import (
+	"slices"
+	"testing"
+)
 
 func TestSum(t *testing.T) {
 	
@@ -29,5 +32,28 @@ func TestSum(t *testing.T) {
 		}
 	})
 
+}
 
+func TestSumAll(t *testing.T) {
+	got := SumAll([]int{1,2}, []int{2,2}, []int{2,3})
+	want := []int{3, 4, 5}
+
+	if !slices.Equal(got, want) {
+		t.Errorf("got %d want %d", got, want)
+	}
+}
+
+func BenchmarkRepeatSumAll(b *testing.B) {
+	for b.Loop() {
+		SumAll([]int{1,2}, []int{2,2}, []int{2,3})
+	}
+}
+
+func TestSumAllTails(t *testing.T) {
+	got := SumAllTails([]int{1,2}, []int{1,1,1}, []int{1,1}, []int{})
+	want := []int{2, 2, 1, 0}
+
+	if !slices.Equal(got, want) {
+		t.Errorf("got %d want %d", got, want)
+	}
 }
